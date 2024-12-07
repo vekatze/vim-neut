@@ -4,14 +4,14 @@ endif
 
 syntax case match
 
-syntax keyword neutKeyword attach bind box case catch constant data default define detach do else else-if exact external function if in inline introspect let letbox letbox-T match of on pin quote resource tie try use when with
+syntax keyword neutKeyword attach bind box case default detach do else else-if exact external foreign function if import in introspect let letbox letbox-T match nominal of on pin quote tie try use when with
 syntax keyword neutConstant this
 syntax keyword neutBuiltin assert magic include-text static _
-syntax keyword neutType type thread meta rune
+syntax keyword neutType meta pointer rune thread type void
 
 syntax keyword neutAdmit admit
 
-syntax keyword neutDefinition define inline constant data nextgroup=neutFunction skipwhite
+syntax keyword neutDefinition data define inline resource nextgroup=neutFunction skipwhite
 syntax keyword neutStatement foreign import nominal
 syntax match neutFunction /\<[^,() {}:;]*\>/ display contained
 
