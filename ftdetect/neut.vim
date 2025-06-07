@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead *.nt setfiletype neut
+autocmd BufNewFile,BufRead *.nt set filetype=neut
