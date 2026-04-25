@@ -2,19 +2,28 @@ if exists('b:did_ftplugin')
   finish
 endif
 
-function! InsertBar()
+let b:did_ftplugin = 1
+
+function! s:InsertBar() abort
+  let l:lnum = line('.')
   let l:line = getline(line('.'))
+  let l:col = col('.')
   if l:line =~ '^\s*$'
-    call setline('.', l:line . '| ')
+    call setline(l:lnum, l:line . '| ')
+    silent! normal! ==
+    call cursor(l:lnum, col('$'))
   else
-    let l:prefix = strpart(line, 0, col('.') - 1)
-    let l:suffix = strpart(line, col('.') - 1)
-    call setline('.', l:prefix . '|' . l:suffix)
+    let l:prefix = strpart(l:line, 0, l:col - 1)
+    let l:suffix = strpart(l:line, l:col - 1)
+    call setline(l:lnum, l:prefix . '|' . l:suffix)
+    call cursor(l:lnum, l:col + 1)
   endif
 endfunction
 
-setlocal iskeyword=@,48-57,_,192-255,-
+setlocal commentstring=//\ %s
+setlocal comments=://
+setlocal iskeyword=@,48-57,_,192-255,-,.
 
-inoremap <buffer> \| <ESC>:call InsertBar()<CR>==a
+inoremap <buffer> <Bar> <C-o>:call <SID>InsertBar()<CR>
 
-let b:did_ftplugin = 1
+let b:undo_ftplugin = 'setlocal commentstring< comments< iskeyword< | silent! iunmap <buffer> <Bar>'
